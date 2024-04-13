@@ -164,6 +164,60 @@ adduser admin
 usermod -aG sudo admin
 ```
 
+## 5. Измерить пропускную способность между BR-R и ISP
+
+На обоих устройствах установить утилиту iferf3
+```bash
+$ sudo apt install iperf3
+```
+
+Еа ISP запустить прослушивание
+```bash
+$ iperf3 -s
+```
+
+На BR-R запустить проверку
+```bash
+$ iperf3 -c 10.0.100.1
+```
+
+
+## 6. Создать backup скрипты для файлов конфигурации сети устройств HQ-R и BR-R
+
+В корневой папке root создаём директорию backup и в ней создаём скрипт backups.sh
+```bash
+$ mkdir backup
+$ nano backups.sh
+```
+
+В скрипте прописываем команды для копирования файлов в папку backup (или на другой сервер по ssh)
+```bash
+#!bin/bash
+
+rsync -avz /etc/network/interfaces /root/backup/
+
+rsync -avz /etc/dhcp/dhcpd.conf /root/backup/
+```
+
+Делаем скрипт исполняемым
+```bash
+$ sudo chmod +x backups.sh
+```
+
+После чего настравиваем автовыполнение скрипта
+```bash
+$ sudo crontab -e
+```
+
+И в конце файла прописываем условия выполнения скрипта
+```bash
+0 */1 * * * /root/backup/backups.sh
+^  ^  ^ ^ ^
+m  h  d m w  # Скрипт будет исполняться каждый час в 0 минут
+```
+
+## 7. Настроить контроль подключения по SSH к HQ-SRV по порту 2222
+
 # Модуль 2
 
 # Модуль 3
