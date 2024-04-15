@@ -14,7 +14,7 @@ CLI: debian-10
 
 ## 1. Составить локальную сеть по схеме и задать адресацию устройствам
 
-![addresses-scheme](https://github.com/asdofen/demo-manual/blob/main/pics/addresses-scheme.png)
+![addresses-scheme](https://github.com/asdofen/demo-manual/blob/main/pics/topology-scheme.png)
 
 ```
 Пулл адресов:
